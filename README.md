@@ -29,4 +29,4 @@
 4. Добавление формы комментариев и обратной связи  
   
 ## **Ссылка на проект**  
-https://jotunheir.github.io/russian-travel/
+https://jotunheir.github.io/mesto/
