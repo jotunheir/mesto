@@ -1,5 +1,4 @@
 .profile__edit-button {
-  all: unset;
   background-image: url(../../../images/Edit\ Button.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -7,8 +6,7 @@
   border: 1px solid #ffffff;
   height: 18px;
   width: 18px;
-  margin-left: 10px;
-  align-self: flex-end;
+  margin: 8px 0 0 10px;
   transition: opacity 0.2s;
 }
 
@@ -21,6 +19,6 @@
   .profile__edit-button {
     width: 24px;
     height: 24px;
-    margin-left: 19px;
+    margin: 15px 0 0 19px;
   }
 }

@@ -1,6 +1,7 @@
 .place {
-  height: 361px;
+  /* height: 361px; */
   width: 282px;
+  padding-bottom: 31px;
   border-radius: 10px;
   background-color: #ffffff;
   box-sizing: border-box;
