@@ -7,13 +7,35 @@
   line-height: 0;
 }
 
+@media screen and (min-width: 768px) {
+  .places {
+    padding-top: 50px;
+    padding-bottom: 67px;
+  }
+}
+
+
+@media screen and (min-width: 855px) {
+  .places {
+    width: 68.75%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 282px);
+    justify-content: space-around;
+  }
+}
+
+@media screen and (min-width: 1250px) {
+  .places {
+    grid-template-columns: repeat(3, 282px);
+    justify-content: space-between;
+  }
+}
+
 @media screen and (min-width: 1280px) {
   .places {
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px 17px;
     width: 100%;
-    padding-top: 50px;
-    padding-bottom: 67px;
   }
 }
