@@ -5,10 +5,18 @@
   padding-top: 42px;
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 768px) {
   .profile {
+    width: 68.75%;
+    margin: 0 auto;
     flex-direction: row;
     padding-top: 40px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .profile {
+    width: 100%;
   }
 }
 
