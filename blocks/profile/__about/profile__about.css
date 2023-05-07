@@ -18,7 +18,7 @@
   }
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1024px) {
   .profile__about {
     font-size: 18px;
     line-height: 1.22;

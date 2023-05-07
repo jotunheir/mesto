@@ -1,5 +1,11 @@
 .place__image {
   height: 282px;
+  width: 282px;
+  object-fit: cover;
   margin: 0;
   padding: 0;
+}
+
+.place__image:hover {
+  cursor: pointer;
 }

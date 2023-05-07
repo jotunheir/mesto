@@ -20,15 +20,15 @@
     width: 68.75%;
     margin: 0 auto;
     display: grid;
+    gap: 20px 17px;
     grid-template-columns: repeat(2, 282px);
-    justify-content: space-around;
+    justify-content: center;
   }
 }
 
 @media screen and (min-width: 1250px) {
   .places {
     grid-template-columns: repeat(3, 282px);
-    justify-content: space-between;
   }
 }
 
