@@ -1,4 +1,4 @@
-.card__title {
+.popup__title_card {
   color: white;
   font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
@@ -8,4 +8,3 @@
   padding-top: 10px;
   margin: 0;
 }
-

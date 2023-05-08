@@ -1,36 +1,45 @@
-// ПРОФИЛЬ
+//КОНСТАНТЫ: профиль
+const openEditButton = document.querySelector('.profile__edit-button');
+const closeEditButton = document.querySelector('.popup__edit-close-button');
 
-// Кнопки
-let openEditButton = document.querySelector('.profile__edit-button');
-let closeEditButton = document.querySelector('.popup__edit-close-button');
+const popupEdit = document.querySelector('.popup_edit-profile');
+const profileName = document.querySelector('.profile__name');
+const profileAbout = document.querySelector('.profile__about');
 
-// Сайт
-let popupEdit = document.querySelector('.popup_edit-profile');
-let profileName = document.querySelector('.profile__name');
-let profileAbout = document.querySelector('.profile__about');
+const formElement = document.querySelector('.popup__edit-form');
+const nameInput = document.querySelector('.popup__input_description_name');
+const aboutInput = document.querySelector('.popup__input_description_about');
 
-// Попап
-let formElement = document.querySelector('.popup__edit-form');
-let nameInput = document.querySelector('.popup__input_description_name');
-let aboutInput = document.querySelector('.popup__input_description_about');
+//КОНСТАНТЫ: карточки мест, добавление места, открытие фотографии
+const openAddButton = document.querySelector('.profile__add-button');
+const closeAddButton = document.querySelector('.popup__add-close-button');
+const addButton = document.querySelector('popup__create-button');
+const fullPopup = document.querySelector('.popup_card');
+const fullImage = document.querySelector('.popup__image');
+const fullTitle = document.querySelector('.popup__title_card');
+const closeFullButton = document.querySelector('.popup__close-button_card');
 
-// Открытие
-let openEditPopup = () => {
-  popupEdit.classList.add('popup_opened');
-};
+const popupAdd = document.querySelector('.popup_add-place');
+const formAddElement = document.querySelector('.popup__add-form');
+const placeInput = document.querySelector('.popup__input_description_place');
+const linkInput = document.querySelector('.popup__input_description_link');
 
-// Закрытие
-let closeEditPopup = () => {
-  popupEdit.classList.remove('popup_opened');
-};
+const placeTemplate = document.querySelector('#card').content;
+const placesContainer = document.querySelector('.places');
 
-// Связка
-let nameAbout = () => {
+//ФУНКЦИИ: открытие/закрытие поп-апов
+const switchPopup = (popup) => {
+  popup.classList.toggle('popup_opened');
+}
+
+//ФУНКЦИИ: профиль
+
+const handleInfo = () => {
   nameInput.value = profileName.textContent;
   aboutInput.value = profileAbout.textContent;
 };
 
-let handleFormSubmit = (evt) => {
+const handleEditFormSubmit = (evt) => {
   evt.preventDefault();
 
   profileName.textContent = nameInput.value;
@@ -39,80 +48,24 @@ let handleFormSubmit = (evt) => {
   closeEditPopup();
 };
 
-// Слушатели
-openEditButton.addEventListener('click', openEditPopup);
-openEditButton.addEventListener('click', nameAbout);
-formElement.addEventListener('submit', handleFormSubmit);
-closeEditButton.addEventListener('click', closeEditPopup);
+//ФУНКЦИИ: карточки мест, добавление места, открытие фотографии
+const createCardElement = (place) => {
+  const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
 
-// КАРТОЧКИ и ПОЛНЫЕ ФОТО
-
-// Кнопки
-let openAddButton = document.querySelector('.profile__add-button');
-let closeAddButton = document.querySelector('.popup__add-close-button');
-let addButton = document.querySelector('popup__create-button');
-
-let fullPopup = document.querySelector('.popup_card');
-let fullImage = document.querySelector('.card__image');
-let fullTitle = document.querySelector('.card__title');
-let closeFullButton = document.querySelector('.popup__close-button_card');
-
-// Форма
-let popupAdd = document.querySelector('.popup_add-place');
-let formAddElement = document.querySelector('.popup__add-form');
-let placeInput = document.querySelector('.popup__input_description_place');
-let linkInput = document.querySelector('.popup__input_description_link');
-
-// Копирование шаблона
-let placeTemplate = document.querySelector('#card').content;
-let placesContainer = document.querySelector('.places');
-
-// Массив
-let placesArray = [
-  {
-    name: 'Дагестан',
-    link: 'https://cdn.discordapp.com/attachments/1104763297019986053/1104766162849513513/P1208939.jpg'
-  },
-  {
-    name: 'Карелия',
-    link: 'https://cdn.discordapp.com/attachments/1104763297019986053/1104793766306533447/A0A6538-R1-11-26.JPG'
-  },
-  {
-    name: 'Эльбрус',
-    link: 'https://cdn.discordapp.com/attachments/1104763297019986053/1104766160622329886/DSC_0115.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://cdn.discordapp.com/attachments/1104763297019986053/1104766162472017951/P1142606.jpg'
-  },
-  {
-    name: 'Монголия',
-    link: 'https://cdn.discordapp.com/attachments/1104763297019986053/1104766833422258336/000038670037.jpg'
-  },
-  {
-    name: 'Подмосковье',
-    link: 'https://cdn.discordapp.com/attachments/1104763297019986053/1104769445483790446/00000014.jpg'
-  }
-];
-
-//Загрузка мест
-let placeCard = (place) => {
-  let placeElement = placeTemplate.querySelector('.place').cloneNode(true);
-
-  let placeTitle = placeElement.querySelector('.place__title');
-  let placeImage = placeElement.querySelector('.place__image');
-  let placeLike = placeElement.querySelector('.place__like');
-  let placeTrash = placeElement.querySelector('.place__trash');
+  const placeTitle = placeElement.querySelector('.place__title');
+  const placeImage = placeElement.querySelector('.place__image');
+  const placeLike = placeElement.querySelector('.place__like');
+  const placeTrash = placeElement.querySelector('.place__trash');
 
   placeTitle.textContent = place.name;
   placeImage.src = place.link;
   placeImage.alt = place.name;
 
-  let likePlace = () => {
+  const likePlace = () => {
     placeLike.classList.toggle('place__like_active');
   }
 
-  let deletePlace = () => {
+  const deletePlace = () => {
     placeElement.remove();
   };
 
@@ -130,39 +83,31 @@ let placeCard = (place) => {
 };
 
 placesArray.forEach((card) => {
-  let element = placeCard(card);
+  const element = createCardElement(card);
   placesContainer.append(element);
 });
 
-// Добавление места
-let handleAddSubmit = (evt) => {
+const handleAddFormSubmit = (evt) => {
   evt.preventDefault();
 
-  let item = {
+  const item = {
     name: placeInput.value,
     link: linkInput.value,
   };
 
-  placesContainer.prepend(placeCard(item))
-  closeAddPopup();
+  placesContainer.prepend(createCardElement(item))
+  switchPopup(popupAdd);
 }
 
-// Открытие/закрытие
-let openAddPopup = () => {
-  popupAdd.classList.add('popup_opened');
-}
+//СЛУШАТЕЛИ: профиль
+openEditButton.addEventListener('click', () => switchPopup(popupEdit));
+closeEditButton.addEventListener('click', () => switchPopup(popupEdit));
+openEditButton.addEventListener('click', handleInfo);
+formElement.addEventListener('submit', handleEditFormSubmit);
 
-let closeAddPopup = () => {
-  popupAdd.classList.remove('popup_opened');
-}
+// Слушатели: карточки мест, добавление места, открытие фотографии
+openAddButton.addEventListener('click', () => switchPopup(popupAdd));
+closeAddButton.addEventListener('click', () => switchPopup(popupAdd));
+popupAdd.addEventListener('submit', handleAddFormSubmit);
 
-let closeFullImage = () => {
-  fullPopup.classList.remove('popup_opened');
-}
-
-// Слушатели
-openAddButton.addEventListener('click', openAddPopup);
-closeAddButton.addEventListener('click', closeAddPopup);
-popupAdd.addEventListener('submit', handleAddSubmit);
-
-closeFullButton.addEventListener('click', closeFullImage);
+closeFullButton.addEventListener('click', () => switchPopup(fullPopup));

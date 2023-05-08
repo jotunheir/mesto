@@ -1,4 +1,6 @@
-.card {
+.popup__container_card {
+  all: unset;
   position: relative;
   margin: auto;
 }
+
