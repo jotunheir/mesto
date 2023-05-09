@@ -30,7 +30,7 @@ const placesContainer = document.querySelector('.places');
 //ФУНКЦИИ: открытие/закрытие поп-апов
 const switchPopup = (popup) => {
   popup.classList.toggle('popup_opened');
-}
+};
 
 //ФУНКЦИИ: профиль
 
@@ -45,7 +45,7 @@ const handleEditFormSubmit = (evt) => {
   profileName.textContent = nameInput.value;
   profileAbout.textContent = aboutInput.value;
 
-  closeEditPopup();
+  switchPopup(popupEdit);
 };
 
 //ФУНКЦИИ: карточки мест, добавление места, открытие фотографии
@@ -76,7 +76,8 @@ const createCardElement = (place) => {
     fullImage.src = place.link;
     fullImage.alt = place.name;
     fullTitle.textContent = place.name;
-    fullPopup.classList.add('popup_opened');
+    switchPopup(fullPopup);
+
   });
 
   return placeElement;
@@ -100,9 +101,11 @@ const handleAddFormSubmit = (evt) => {
 }
 
 //СЛУШАТЕЛИ: профиль
-openEditButton.addEventListener('click', () => switchPopup(popupEdit));
+openEditButton.addEventListener('click', () => {
+  switchPopup(popupEdit);
+  handleInfo();
+});
 closeEditButton.addEventListener('click', () => switchPopup(popupEdit));
-openEditButton.addEventListener('click', handleInfo);
 formElement.addEventListener('submit', handleEditFormSubmit);
 
 // Слушатели: карточки мест, добавление места, открытие фотографии
