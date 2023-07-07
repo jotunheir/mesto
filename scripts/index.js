@@ -1,3 +1,5 @@
+const popups = document.querySelectorAll('.popup')
+
 //КОНСТАНТЫ: профиль
 const openEditButton = document.querySelector('.profile__edit-button');
 const closeEditButton = document.querySelector('.popup__edit-close-button');
@@ -32,11 +34,20 @@ const switchPopup = (popup) => {
   popup.classList.toggle('popup_opened');
 };
 
+const closePopupEsc = (evt) => {
+  let popup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    popup.classList.remove('popup_opened');
+  }
+};
+
 //ФУНКЦИИ: профиль
 
 const handleInfo = () => {
+  let event = new Event("input");
   nameInput.value = profileName.textContent;
   aboutInput.value = profileAbout.textContent;
+  nameInput.dispatchEvent(event);
 };
 
 const handleEditFormSubmit = (evt) => {
@@ -98,6 +109,8 @@ const handleAddFormSubmit = (evt) => {
 
   placesContainer.prepend(createCardElement(item))
   switchPopup(popupAdd);
+  formAddElement.reset();
+  disableButton(addButton, config);
 }
 
 //СЛУШАТЕЛИ: профиль
@@ -108,9 +121,20 @@ openEditButton.addEventListener('click', () => {
 closeEditButton.addEventListener('click', () => switchPopup(popupEdit));
 formElement.addEventListener('submit', handleEditFormSubmit);
 
-// Слушатели: карточки мест, добавление места, открытие фотографии
+//СЛУШАТЕЛИ: карточки мест, добавление места, открытие фотографии
 openAddButton.addEventListener('click', () => switchPopup(popupAdd));
 closeAddButton.addEventListener('click', () => switchPopup(popupAdd));
 popupAdd.addEventListener('submit', handleAddFormSubmit);
 
 closeFullButton.addEventListener('click', () => switchPopup(fullPopup));
+
+//СЛУШАТЕЛИ: закрытие поп-апов по ESC и оверлеем
+document.addEventListener('keydown', (evt) => closePopupEsc(evt));
+
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup')) {
+      switchPopup(popup);
+    }
+  });
+})
