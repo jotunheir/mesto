@@ -7,6 +7,7 @@
   color: #ffffff;
   background-color: #000000;
   min-height: 46px;
+  min-width: 238px;
   border-radius: 2px;
   text-align: center;
   transition: opacity 0.2s;

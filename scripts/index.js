@@ -113,7 +113,6 @@ const handleAddFormSubmit = (evt) => {
   placesContainer.prepend(createCardElement(item))
   closePopup(popupAdd);
   formAddElement.reset();
-  disableButton(addButton, config);
 }
 
 //СЛУШАТЕЛИ: профиль
