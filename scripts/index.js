@@ -2,24 +2,21 @@ const popups = document.querySelectorAll('.popup')
 
 //КОНСТАНТЫ: профиль
 const openEditButton = document.querySelector('.profile__edit-button');
-const closeEditButton = document.querySelector('.popup__edit-close-button');
 
 const popupEdit = document.querySelector('.popup_edit-profile');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
 
-const formElement = document.querySelector('.popup__edit-form');
+const editFormormElement = document.querySelector('.popup__edit-form');
 const nameInput = document.querySelector('.popup__input_description_name');
 const aboutInput = document.querySelector('.popup__input_description_about');
 
 //КОНСТАНТЫ: карточки мест, добавление места, открытие фотографии
 const openAddButton = document.querySelector('.profile__add-button');
-const closeAddButton = document.querySelector('.popup__add-close-button');
 const addButton = document.querySelector('popup__create-button');
 const fullPopup = document.querySelector('.popup_card');
 const fullImage = document.querySelector('.popup__image');
 const fullTitle = document.querySelector('.popup__title_card');
-const closeFullButton = document.querySelector('.popup__close-button_card');
 
 const popupAdd = document.querySelector('.popup_add-place');
 const formAddElement = document.querySelector('.popup__add-form');
@@ -30,21 +27,27 @@ const placeTemplate = document.querySelector('#card').content;
 const placesContainer = document.querySelector('.places');
 
 //ФУНКЦИИ: открытие/закрытие поп-апов
-const switchPopup = (popup) => {
-  popup.classList.toggle('popup_opened');
-};
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupEsc);
+}
+
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupEsc);
+}
 
 const closePopupEsc = (evt) => {
-  let popup = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
-    popup.classList.remove('popup_opened');
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup);
   }
 };
 
 //ФУНКЦИИ: профиль
 
 const handleInfo = () => {
-  let event = new Event("input");
+  const event = new Event("input");
   nameInput.value = profileName.textContent;
   aboutInput.value = profileAbout.textContent;
   nameInput.dispatchEvent(event);
@@ -56,7 +59,7 @@ const handleEditFormSubmit = (evt) => {
   profileName.textContent = nameInput.value;
   profileAbout.textContent = aboutInput.value;
 
-  switchPopup(popupEdit);
+  closePopup(popupEdit);
 };
 
 //ФУНКЦИИ: карточки мест, добавление места, открытие фотографии
@@ -87,7 +90,7 @@ const createCardElement = (place) => {
     fullImage.src = place.link;
     fullImage.alt = place.name;
     fullTitle.textContent = place.name;
-    switchPopup(fullPopup);
+    openPopup(fullPopup);
 
   });
 
@@ -108,33 +111,29 @@ const handleAddFormSubmit = (evt) => {
   };
 
   placesContainer.prepend(createCardElement(item))
-  switchPopup(popupAdd);
+  closePopup(popupAdd);
   formAddElement.reset();
   disableButton(addButton, config);
 }
 
 //СЛУШАТЕЛИ: профиль
 openEditButton.addEventListener('click', () => {
-  switchPopup(popupEdit);
+  openPopup(popupEdit);
   handleInfo();
 });
-closeEditButton.addEventListener('click', () => switchPopup(popupEdit));
-formElement.addEventListener('submit', handleEditFormSubmit);
+editFormormElement.addEventListener('submit', handleEditFormSubmit);
 
 //СЛУШАТЕЛИ: карточки мест, добавление места, открытие фотографии
-openAddButton.addEventListener('click', () => switchPopup(popupAdd));
-closeAddButton.addEventListener('click', () => switchPopup(popupAdd));
+openAddButton.addEventListener('click', () => openPopup(popupAdd));
 popupAdd.addEventListener('submit', handleAddFormSubmit);
 
-closeFullButton.addEventListener('click', () => switchPopup(fullPopup));
 
 //СЛУШАТЕЛИ: закрытие поп-апов по ESC и оверлеем
-document.addEventListener('keydown', (evt) => closePopupEsc(evt));
 
 popups.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup')) {
-      switchPopup(popup);
+    if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) {
+      closePopup(evt.currentTarget);
     }
   });
 })

@@ -24,3 +24,12 @@ const placesArray = [
     link: 'https://cdn.discordapp.com/attachments/1104763297019986053/1104769445483790446/00000014.jpg'
   }
 ];
+
+const configValidation = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__input_state_invalid',
+  inputErrorClass: 'popup__input_state_invalid',
+  errorClass: 'popup__input-error'
+};

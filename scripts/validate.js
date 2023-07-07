@@ -9,7 +9,7 @@ const hideInputError = (inputElement, errorElement) => {
 };
 
 const checkInputValidity = (inputElement, formElement) => {
-  let errorElement = formElement.querySelector(`#${inputElement.name}-error`);
+  const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
   console.log(errorElement);
   (!inputElement.validity.valid) ? showInputError(inputElement, errorElement) : hideInputError(inputElement, errorElement);
 
@@ -34,7 +34,7 @@ const toggleButtonState = (buttonElement, isActive) => {
 };
 
 const setEventListeners = (formElement) => {
-  let inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
   const buttonElement = formElement.querySelector('.popup__save-button');
 
   toggleButtonState(buttonElement, formElement.checkValidity());
@@ -52,19 +52,10 @@ const setEventListeners = (formElement) => {
 };
 
 const enableValidation = () => {
-  let formList = Array.from(document.querySelectorAll('.popup__form'));
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
   formList.forEach((formElement) => {
     setEventListeners(formElement);
 });
 }
 
-config = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__input_state_invalid',
-  inputErrorClass: 'popup__input_state_invalid',
-  errorClass: 'popup__input-error'
-};
-
-enableValidation(config);
+enableValidation(configValidation);
