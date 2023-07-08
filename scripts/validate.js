@@ -16,7 +16,7 @@ const checkInputValidity = (inputElement, formElement) => {
 };
 
 const disableButton = (buttonElement) => {
-  buttonElement.disabled = 'disabled';
+  buttonElement.disabled = true;
   buttonElement.classList.add('popup__save-button_invalid');
 }
 

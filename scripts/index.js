@@ -13,7 +13,7 @@ const aboutInput = document.querySelector('.popup__input_description_about');
 
 //КОНСТАНТЫ: карточки мест, добавление места, открытие фотографии
 const openAddButton = document.querySelector('.profile__add-button');
-const addButton = document.querySelector('popup__create-button');
+const addButton = document.querySelector('.popup__create-button');
 const fullPopup = document.querySelector('.popup_card');
 const fullImage = document.querySelector('.popup__image');
 const fullTitle = document.querySelector('.popup__title_card');
@@ -123,7 +123,12 @@ openEditButton.addEventListener('click', () => {
 editFormormElement.addEventListener('submit', handleEditFormSubmit);
 
 //СЛУШАТЕЛИ: карточки мест, добавление места, открытие фотографии
-openAddButton.addEventListener('click', () => openPopup(popupAdd));
+
+openAddButton.addEventListener('click', () => {
+  openPopup(popupAdd);
+  disableButton(addButton);
+});
+
 popupAdd.addEventListener('submit', handleAddFormSubmit);
 
 
