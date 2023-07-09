@@ -28,8 +28,8 @@ const placesArray = [
 const configValidation = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__input_state_invalid',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_invalid',
   inputErrorClass: 'popup__input_state_invalid',
   errorClass: 'popup__input-error'
 };
