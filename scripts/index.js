@@ -1,3 +1,5 @@
+import { Card } from "./Card.js";
+
 const popups = document.querySelectorAll('.popup')
 
 //КОНСТАНТЫ: профиль
@@ -23,7 +25,6 @@ const formAddElement = document.querySelector('.popup__add-form');
 const placeInput = document.querySelector('.popup__input_description_place');
 const linkInput = document.querySelector('.popup__input_description_link');
 
-const placeTemplate = document.querySelector('#card').content;
 const placesContainer = document.querySelector('.places');
 
 //ФУНКЦИИ: открытие/закрытие поп-апов
@@ -63,43 +64,39 @@ const handleEditFormSubmit = (evt) => {
 };
 
 //ФУНКЦИИ: карточки мест, добавление места, открытие фотографии
-const createCardElement = (place) => {
-  const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
 
-  const placeTitle = placeElement.querySelector('.place__title');
-  const placeImage = placeElement.querySelector('.place__image');
-  const placeLike = placeElement.querySelector('.place__like');
-  const placeTrash = placeElement.querySelector('.place__trash');
+const likePlace = (cardLike) => {
+  cardLike.classList.toggle('place__like_active');
+}
 
-  placeTitle.textContent = place.name;
-  placeImage.src = place.link;
-  placeImage.alt = place.name;
-
-  const likePlace = () => {
-    placeLike.classList.toggle('place__like_active');
-  }
-
-  const deletePlace = () => {
-    placeElement.remove();
-  };
-
-  placeLike.addEventListener('click', likePlace);
-  placeTrash.addEventListener('click', deletePlace);
-
-  placeImage.addEventListener('click', () => {
-    fullImage.src = place.link;
-    fullImage.alt = place.name;
-    fullTitle.textContent = place.name;
-    openPopup(fullPopup);
-
-  });
-
-  return placeElement;
+const deletePlace = (cardElement) => {
+  cardElement.remove();
 };
 
+const openPlace = (cardData) => {
+  fullImage.src = cardData.link;
+  fullImage.alt = cardData.name;
+  fullTitle.textContent = cardData.name;
+  openPopup(fullPopup);
+
+}
+
+const renderCards = (data, container, position = 'append') => {
+  const cardElement = new Card({ data, openPlace, deletePlace, likePlace }, '#card').createCardElement();
+  switch (position) {
+    case "append":
+      container.append(cardElement);
+      break;
+    case "prepend":
+      container.prepend(cardElement);
+      break;
+    default:
+      break;
+  }
+}
+
 placesArray.forEach((card) => {
-  const element = createCardElement(card);
-  placesContainer.append(element);
+  renderCards(card, placesContainer);
 });
 
 const handleAddFormSubmit = (evt) => {
@@ -110,7 +107,7 @@ const handleAddFormSubmit = (evt) => {
     link: linkInput.value,
   };
 
-  placesContainer.prepend(createCardElement(item))
+  renderCards(item, placesContainer, 'prepend');
   closePopup(popupAdd);
   formAddElement.reset();
 }
