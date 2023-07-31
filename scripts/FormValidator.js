@@ -7,6 +7,8 @@ export class FormValidator {
   constructor(data, configValidation) {
     this.#data = data;
     this.#configValidation = configValidation;
+    this.#inputList = this.#data.querySelectorAll(this.#configValidation.inputSelector);
+    this.#buttonElement = this.#data.querySelector(this.#configValidation.submitButtonSelector);
   }
 
   #showInputError(inputElement, errorElement) {
@@ -45,9 +47,6 @@ export class FormValidator {
   };
 
   enableValidation() {
-    this.#inputList = this.#data.querySelectorAll(this.#configValidation.inputSelector);
-    this.#buttonElement = this.#data.querySelector(this.#configValidation.submitButtonSelector);
-
     this.#toggleButtonState(this.#buttonElement, this.#data.checkValidity());
 
     this.#inputList.forEach((inputElement) => {

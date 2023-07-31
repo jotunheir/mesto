@@ -5,7 +5,7 @@ import { Card } from "./Card.js";
 const popups = document.querySelectorAll('.popup');
 
 //КОНСТАНТЫ: профиль
-const openEditButton = document.querySelector('.profile__edit-button');
+const profileEditButton = document.querySelector('.profile__edit-button');
 
 const popupEdit = document.querySelector('.popup_edit-profile');
 const profileName = document.querySelector('.profile__name');
@@ -16,8 +16,8 @@ const nameInput = document.querySelector('.popup__input_description_name');
 const aboutInput = document.querySelector('.popup__input_description_about');
 
 //КОНСТАНТЫ: карточки мест, добавление места, открытие фотографии
-const openAddButton = document.querySelector('.profile__add-button');
-const addButton = document.querySelector('.popup__create-button');
+const cardAddButton = document.querySelector('.profile__add-button');
+const cardCreateButton = document.querySelector('.popup__create-button');
 const fullPopup = document.querySelector('.popup_card');
 const fullImage = document.querySelector('.popup__image');
 const fullTitle = document.querySelector('.popup__title_card');
@@ -73,14 +73,6 @@ const handleEditFormSubmit = (evt) => {
 const validateCard = new FormValidator(formAddElement, configValidation);
 validateCard.enableValidation();
 
-const likePlace = (cardLike) => {
-  cardLike.classList.toggle('place__like_active');
-}
-
-const deletePlace = (cardElement) => {
-  cardElement.remove();
-};
-
 const openPlace = (cardData) => {
   fullImage.src = cardData.link;
   fullImage.alt = cardData.name;
@@ -90,7 +82,7 @@ const openPlace = (cardData) => {
 }
 
 const renderCards = (data, container, position = 'append') => {
-  const cardElement = new Card({ data, openPlace, deletePlace, likePlace }, '#card').createCardElement();
+  const cardElement = new Card({ data, openPlace }, '#card').createCardElement();
   switch (position) {
     case "append":
       container.append(cardElement);
@@ -121,7 +113,7 @@ const handleAddFormSubmit = (evt) => {
 }
 
 //СЛУШАТЕЛИ: профиль
-openEditButton.addEventListener('click', () => {
+profileEditButton.addEventListener('click', () => {
   openPopup(popupEdit);
   handleInfo();
 });
@@ -129,9 +121,9 @@ editFormElement.addEventListener('submit', handleEditFormSubmit);
 
 //СЛУШАТЕЛИ: карточки мест, добавление места, открытие фотографии
 
-openAddButton.addEventListener('click', () => {
+cardAddButton.addEventListener('click', () => {
   openPopup(popupAdd);
-  validateCard.disableButton(addButton);
+  validateCard.disableButton(cardCreateButton);
 });
 
 popupAdd.addEventListener('submit', handleAddFormSubmit);
