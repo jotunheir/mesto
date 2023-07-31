@@ -33,3 +33,5 @@ const configValidation = {
   inputErrorClass: 'popup__input_state_invalid',
   errorClass: 'popup__input-error'
 };
+
+export { placesArray, configValidation }

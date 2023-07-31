@@ -1,6 +1,8 @@
+import { placesArray, configValidation } from "./constants.js";
+import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
 
-const popups = document.querySelectorAll('.popup')
+const popups = document.querySelectorAll('.popup');
 
 //КОНСТАНТЫ: профиль
 const openEditButton = document.querySelector('.profile__edit-button');
@@ -9,7 +11,7 @@ const popupEdit = document.querySelector('.popup_edit-profile');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
 
-const editFormormElement = document.querySelector('.popup__edit-form');
+const editFormElement = document.querySelector('.popup__edit-form');
 const nameInput = document.querySelector('.popup__input_description_name');
 const aboutInput = document.querySelector('.popup__input_description_about');
 
@@ -47,6 +49,9 @@ const closePopupEsc = (evt) => {
 
 //ФУНКЦИИ: профиль
 
+const validateProfile = new FormValidator(editFormElement, configValidation);
+validateProfile.enableValidation();
+
 const handleInfo = () => {
   const event = new Event("input");
   nameInput.value = profileName.textContent;
@@ -64,6 +69,9 @@ const handleEditFormSubmit = (evt) => {
 };
 
 //ФУНКЦИИ: карточки мест, добавление места, открытие фотографии
+
+const validateCard = new FormValidator(formAddElement, configValidation);
+validateCard.enableValidation();
 
 const likePlace = (cardLike) => {
   cardLike.classList.toggle('place__like_active');
@@ -117,13 +125,13 @@ openEditButton.addEventListener('click', () => {
   openPopup(popupEdit);
   handleInfo();
 });
-editFormormElement.addEventListener('submit', handleEditFormSubmit);
+editFormElement.addEventListener('submit', handleEditFormSubmit);
 
 //СЛУШАТЕЛИ: карточки мест, добавление места, открытие фотографии
 
 openAddButton.addEventListener('click', () => {
   openPopup(popupAdd);
-  disableButton(addButton);
+  validateCard.disableButton(addButton);
 });
 
 popupAdd.addEventListener('submit', handleAddFormSubmit);

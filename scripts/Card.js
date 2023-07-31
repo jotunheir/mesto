@@ -5,12 +5,10 @@ export class Card {
   #openPlace;
   #deletePlace;
   #likePlace;
-
-  #getTemplate() {
-    return document
-      .querySelector(this.#templateSelector)
-      .content.querySelector('.place').cloneNode(true)
-  }
+  #placeTitle;
+  #placeImage;
+  #placeLike;
+  #placeTrash;
 
   constructor({ data, openPlace, deletePlace, likePlace }, templateSelector) {
     this.#data = data;
@@ -20,21 +18,31 @@ export class Card {
     this.#likePlace = likePlace;
   }
 
+  #getTemplate() {
+    return document
+      .querySelector(this.#templateSelector)
+      .content.querySelector('.place').cloneNode(true)
+  }
+
+  #setEventListeners() {
+    this.#placeLike.addEventListener('click', () => { this.#likePlace(this.#placeLike) });
+    this.#placeTrash.addEventListener('click', () => { this.#deletePlace(this.#placeElement) });
+    this.#placeImage.addEventListener('click', () => { this.#openPlace(this.#data) });
+  }
+
   createCardElement() {
     this.#placeElement = this.#getTemplate();
 
-    const placeTitle = this.#placeElement.querySelector('.place__title');
-    const placeImage = this.#placeElement.querySelector('.place__image');
-    const placeLike = this.#placeElement.querySelector('.place__like');
-    const placeTrash = this.#placeElement.querySelector('.place__trash');
+    this.#placeTitle = this.#placeElement.querySelector('.place__title');
+    this.#placeImage = this.#placeElement.querySelector('.place__image');
+    this.#placeLike = this.#placeElement.querySelector('.place__like');
+    this.#placeTrash = this.#placeElement.querySelector('.place__trash');
 
-    placeTitle.textContent = this.#data.name;
-    placeImage.src = this.#data.link;
-    placeImage.alt = this.#data.name;
+    this.#placeTitle.textContent = this.#data.name;
+    this.#placeImage.src = this.#data.link;
+    this.#placeImage.alt = this.#data.name;
 
-    placeLike.addEventListener('click', () => { this.#likePlace(placeLike) });
-    placeTrash.addEventListener('click', () => { this.#deletePlace(this.#placeElement) });
-    placeImage.addEventListener('click', () => { this.#openPlace(this.#data) });
+    this.#setEventListeners();
 
     return this.#placeElement;
   };
