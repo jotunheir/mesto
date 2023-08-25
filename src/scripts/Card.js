@@ -2,18 +2,16 @@ export class Card {
   #data;
   #placeElement;
   #templateSelector;
-  #openPlace;
-  #deletePlace;
-  #likePlace;
+  #handleClickCard;
   #placeTitle;
   #placeImage;
   #placeLike;
   #placeTrash;
 
-  constructor({ data, openPlace }, templateSelector) {
+  constructor({ data, handleClickCard }, templateSelector) {
     this.#data = data;
     this.#templateSelector = templateSelector;
-    this.#openPlace = openPlace;
+    this.#handleClickCard = handleClickCard;
 
   }
 
@@ -26,7 +24,7 @@ export class Card {
   #setEventListeners() {
     this.#placeLike.addEventListener('click', () => { this.likePlace(this.#placeLike) });
     this.#placeTrash.addEventListener('click', () => { this.deletePlace(this.#placeElement) });
-    this.#placeImage.addEventListener('click', () => { this.#openPlace(this.#data) });
+    this.#placeImage.addEventListener('click', () => { this.#handleClickCard(this.#data) });
   }
 
   likePlace() {

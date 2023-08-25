@@ -1,6 +1,11 @@
-import { placesArray, configValidation } from "./constants.js";
-import { FormValidator } from "./FormValidator.js";
-import { Card } from "./Card.js";
+import './index.css';
+
+import { Section } from '../scripts/Section';
+import { PopupWithForm } from '../scripts/PopupWithForm';
+import { placesArray, configValidation } from "../scripts/constants"
+import { FormValidator } from "../scripts/FormValidator.js";
+import { Card } from "../scripts/Card.js";
+import { PopupWithImage } from '../scripts/PopupWithImage';
 
 const popups = document.querySelectorAll('.popup');
 
@@ -27,25 +32,40 @@ const formAddElement = document.querySelector('.popup__add-form');
 const placeInput = document.querySelector('.popup__input_description_place');
 const linkInput = document.querySelector('.popup__input_description_link');
 
-const placesContainer = document.querySelector('.places');
+//Секция
+const sectionInsatce = new Section(renderCards, '.places');
+
+function renderCards({data, position = 'append'}) {
+  const cardElement = new Card({ data, handleCardClick }, '#card').createCardElement();
+  sectionInsatce.addItem(cardElement, position)
+};
+sectionInsatce.renderItems(placesArray);
+
+// Попап с картинкой
+const popupImageInstace = new PopupWithImage('.popup_card');
+popupImageInstace.setEventListeners();
+
+function handleCardClick(data) {
+  popupImageInstace.open(data);
+}
 
 //ФУНКЦИИ: открытие/закрытие поп-апов
-const openPopup = (popup) => {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupEsc);
-}
+// const openPopup = (popup) => {
+//   popup.classList.add('popup_opened');
+//   document.addEventListener('keydown', closePopupEsc);
+// }
 
-const closePopup = (popup) => {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupEsc);
-}
+// const closePopup = (popup) => {
+//   popup.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', closePopupEsc);
+// }
 
-const closePopupEsc = (evt) => {
-  if (evt.key === 'Escape') {
-    const popup = document.querySelector('.popup_opened');
-    closePopup(popup);
-  }
-};
+// const closePopupEsc = (evt) => {
+//   if (evt.key === 'Escape') {
+//     const popup = document.querySelector('.popup_opened');
+//     closePopup(popup);
+//   }
+// };
 
 //ФУНКЦИИ: профиль
 
@@ -81,36 +101,21 @@ const openPlace = (cardData) => {
 
 }
 
-const renderCards = (data, container, position = 'append') => {
-  const cardElement = new Card({ data, openPlace }, '#card').createCardElement();
-  switch (position) {
-    case "append":
-      container.append(cardElement);
-      break;
-    case "prepend":
-      container.prepend(cardElement);
-      break;
-    default:
-      break;
-  }
-}
-
-placesArray.forEach((card) => {
-  renderCards(card, placesContainer);
-});
-
 const handleAddFormSubmit = (evt) => {
   evt.preventDefault();
+
 
   const item = {
     name: placeInput.value,
     link: linkInput.value,
   };
 
-  renderCards(item, placesContainer, 'prepend');
+  renderCards({ data: item, position: 'prepend' });
   closePopup(popupAdd);
   formAddElement.reset();
 }
+
+
 
 //СЛУШАТЕЛИ: профиль
 profileEditButton.addEventListener('click', () => {
@@ -131,10 +136,10 @@ popupAdd.addEventListener('submit', handleAddFormSubmit);
 
 //СЛУШАТЕЛИ: закрытие поп-апов по ESC и оверлеем
 
-popups.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-    if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) {
-      closePopup(evt.currentTarget);
-    }
-  });
-})
+// popups.forEach((popup) => {
+//   popup.addEventListener('mousedown', (evt) => {
+//     if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) {
+//       closePopup(evt.currentTarget);
+//     }
+//   });
+// })
