@@ -28,14 +28,14 @@ export class FormValidator {
       this.#hideInputError(inputElement, errorElement);
   };
 
-  disableButton = (buttonElement) => {
-    buttonElement.disabled = true;
-    buttonElement.classList.add(this.#configValidation.inactiveButtonClass);
+  disableButton = () => {
+    this.#buttonElement.disabled = true;
+    this.#buttonElement.classList.add(this.#configValidation.inactiveButtonClass);
   }
 
-  #enableButton = (buttonElement) => {
-    buttonElement.disabled = false;
-    buttonElement.classList.remove(this.#configValidation.inactiveButtonClass)
+  #enableButton = () => {
+    this.#buttonElement.disabled = false;
+    this.#buttonElement.classList.remove(this.#configValidation.inactiveButtonClass)
   };
 
   #toggleButtonState = (buttonElement, isActive) => {

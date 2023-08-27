@@ -21,8 +21,8 @@ export class Card {
   }
 
   #setEventListeners() {
-    this.#placeLike.addEventListener('click', () => { this.likePlace(this.#placeLike) });
-    this.#placeTrash.addEventListener('click', () => { this.deletePlace(this.#placeElement) });
+    this.#placeLike.addEventListener('click', () => { this.likePlace() });
+    this.#placeTrash.addEventListener('click', () => { this.deletePlace() });
     this.#placeImage.addEventListener('click', () => { this.#handleClickCard(this.#data) });
   }
 

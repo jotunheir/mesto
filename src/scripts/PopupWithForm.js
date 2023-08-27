@@ -14,11 +14,11 @@ export class PopupWithForm extends Popup {
   }
 
   #getInputValues() {
-    this.#values = {};
+    const values = {};
     this.#inputList.forEach(input => {
-      this.#values[input.name] = input.value
+      values[input.name] = input.value
     })
-    return this.#values;
+    return values;
   }
 
   close() {

@@ -24,9 +24,9 @@ import { PopupWithForm } from '../scripts/PopupWithForm';
 
 // Section
 
-const sectionInsatce = new Section(renderCards, '.places');
+const sectionInsatce = new Section(renderCard, '.places');
 
-function renderCards({ data, position = 'append' }) {
+function renderCard({ data, position = 'append' }) {
   const cardElement = new Card({ data, handleClickCard }, '#card').createCardElement();
   sectionInsatce.addItem(cardElement, position)
 };
@@ -79,9 +79,8 @@ function handleSubmitCard() {
     link: linkInput.value,
   };
 
-  renderCards({ data: item, position: 'prepend' });
+  renderCard({ data: item, position: 'prepend' });
   popupAddFormInstance.close();
-  addFormAdElement.reset();
 }
 
 const validateCard = new FormValidator(addFormAdElement, configValidation);
