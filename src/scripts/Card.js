@@ -12,7 +12,6 @@ export class Card {
     this.#data = data;
     this.#templateSelector = templateSelector;
     this.#handleClickCard = handleClickCard;
-
   }
 
   #getTemplate() {

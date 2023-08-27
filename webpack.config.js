@@ -11,9 +11,11 @@ module.exports = (env) => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: production
-        ? 'scripts/[name].[contenthash].js'
-        : 'scripts/[name].js',
-      publicPath: production ? '../' : '',
+        ? '[name].[contenthash].js'
+        : '[name].js',
+      publicPath: production
+      ? './'
+      : '',
     },
     mode: 'development',
     devServer: {
@@ -41,7 +43,7 @@ module.exports = (env) => {
           test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
           type: 'asset/resource',
           generator: {
-            filename: 'assets/[hash][ext][query]'
+            filename: '[hash][ext][query]'
           }
         },
         {
@@ -59,8 +61,8 @@ module.exports = (env) => {
       new CleanWebpackPlugin(),
       new MiniCssExtractPlugin({
         filename: production
-          ? 'styles/[name].[contenthash].css'
-          : 'styles/[name].css',
+          ? '[name].[contenthash].css'
+          : '[name].css',
       })
     ],
     devtool: production ? false : 'eval-source-map'

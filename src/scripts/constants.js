@@ -1,4 +1,4 @@
-const placesArray = [
+export const placesArray = [
   {
     name: 'Дагестан',
     link: 'https://cdn.discordapp.com/attachments/1104763297019986053/1104766162849513513/P1208939.jpg'
@@ -25,7 +25,7 @@ const placesArray = [
   }
 ];
 
-const configValidation = {
+export const configValidation = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__save-button',
@@ -34,4 +34,20 @@ const configValidation = {
   errorClass: 'popup__input-error'
 };
 
-export { placesArray, configValidation }
+// Profile (constants)
+
+export const profileEditButton = document.querySelector('.profile__edit-button');
+export const profileSaveButton = document.querySelector('.popup__save-button');
+
+export const editFormElement = document.querySelector('.popup__edit-form');
+export const nameInput = document.querySelector('.popup__input_description_name');
+export const aboutInput = document.querySelector('.popup__input_description_about');
+
+// Place (constants)
+
+export const cardAddButton = document.querySelector('.profile__add-button');
+export const cardSaveButton = document.querySelector('.popup__create-button');
+
+export const addFormAdElement = document.querySelector('.popup__add-form');
+export const placeInput = document.querySelector('.popup__input_description_place');
+export const linkInput = document.querySelector('.popup__input_description_link');

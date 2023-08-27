@@ -24,8 +24,8 @@ export class FormValidator {
   #checkInputValidity(inputElement, formElement) {
     const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
     (!inputElement.validity.valid) ?
-    this.#showInputError(inputElement, errorElement) :
-    this.#hideInputError(inputElement, errorElement);
+      this.#showInputError(inputElement, errorElement) :
+      this.#hideInputError(inputElement, errorElement);
   };
 
   disableButton = (buttonElement) => {
@@ -58,7 +58,6 @@ export class FormValidator {
 
     this.#data.addEventListener('submit', (evt) => {
       evt.preventDefault();
-  });
+    });
   };
-
 }
