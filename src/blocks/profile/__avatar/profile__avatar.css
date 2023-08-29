@@ -1,13 +1,15 @@
 .profile__avatar {
+  position: relative;
+  z-index: 1;
   height: 120px;
   width: 120px;
   border-radius: 50%;
   object-fit: cover;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
-@media screen and (min-width: 768px) {
+/* @media screen and (min-width: 768px) {
   .profile__avatar {
     margin: 0;
   }
-}
+} */
