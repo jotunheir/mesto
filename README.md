@@ -22,7 +22,7 @@
 7. DOM
 8. ООП
 9. ES6 Modules
-7. Webpack
+10. Webpack
 
 ## **Развитие проекта**
 
