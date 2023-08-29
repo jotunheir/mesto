@@ -4,12 +4,10 @@ import {
   placesArray,
   configValidation,
   profileEditButton,
-  profileSaveButton,
   editFormElement,
   nameInput,
   aboutInput,
   cardAddButton,
-  cardSaveButton,
   addFormAdElement,
   placeInput,
   linkInput,
@@ -56,7 +54,7 @@ function openProfilePopup() {
 
 profileEditButton.addEventListener('click', () => {
   openProfilePopup();
-  validateProfile.disableButton(profileSaveButton);
+  validateProfile.disableButton();
 });
 
 const validateProfile = new FormValidator(editFormElement, configValidation);
@@ -69,7 +67,7 @@ popupAddFormInstance.setEventListeners();
 
 cardAddButton.addEventListener('click', () => {
   popupAddFormInstance.open();
-  validateCard.disableButton(cardSaveButton);
+  validateCard.disableButton();
 });
 
 function handleSubmitCard() {

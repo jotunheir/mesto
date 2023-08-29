@@ -14,8 +14,8 @@ module.exports = (env) => {
         ? '[name].[contenthash].js'
         : '[name].js',
       publicPath: production
-      ? './'
-      : '',
+        ? './'
+        : '',
     },
     mode: 'development',
     devServer: {
@@ -40,10 +40,17 @@ module.exports = (env) => {
           ]
         },
         {
-          test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
           type: 'asset/resource',
           generator: {
-            filename: '[hash][ext][query]'
+            filename: 'images/[name].[hash][ext]',
+          }
+        },
+        {
+          test: /\.(woff(2)?|eot|ttf|otf)$/i,
+          type: 'asset/resource',
+          generator: {
+            filename: 'fonts/[name].[hash][ext]',
           }
         },
         {

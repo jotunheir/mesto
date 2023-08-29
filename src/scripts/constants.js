@@ -37,7 +37,6 @@ export const configValidation = {
 // Profile (constants)
 
 export const profileEditButton = document.querySelector('.profile__edit-button');
-export const profileSaveButton = document.querySelector('.popup__save-button');
 
 export const editFormElement = document.querySelector('.popup__edit-form');
 export const nameInput = document.querySelector('.popup__input_description_name');
@@ -46,7 +45,6 @@ export const aboutInput = document.querySelector('.popup__input_description_abou
 // Place (constants)
 
 export const cardAddButton = document.querySelector('.profile__add-button');
-export const cardSaveButton = document.querySelector('.popup__create-button');
 
 export const addFormAdElement = document.querySelector('.popup__add-form');
 export const placeInput = document.querySelector('.popup__input_description_place');
