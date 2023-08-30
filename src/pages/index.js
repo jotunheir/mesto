@@ -3,6 +3,7 @@ import './index.css';
 import {
   placesArray,
   configValidation,
+  configAPI,
   profileEditButton,
   editFormElement,
   nameInput,
@@ -13,12 +14,17 @@ import {
   linkInput,
 } from "../scripts/constants";
 
+import { Api } from '../scripts/API';
 import { Section } from '../scripts/Section';
 import { FormValidator } from "../scripts/FormValidator.js";
 import { Card } from "../scripts/Card.js";
 import { PopupWithImage } from '../scripts/PopupWithImage';
 import { UserInfo } from '../scripts/UserInfo';
 import { PopupWithForm } from '../scripts/PopupWithForm';
+
+// API
+
+const api = new Api(configAPI);
 
 // Section
 

@@ -34,6 +34,14 @@ export const configValidation = {
   errorClass: 'popup__input-error'
 };
 
+export const configAPI = {
+  url: 'https://mesto.nomoreparties.co/v1/cohort-73',
+  headers: {
+    authorization: '20caa1a6-6205-44fa-bd39-a6b3bb76afc6',
+    "content-type": "application/json"
+  }
+};
+
 // Profile (constants)
 
 export const profileEditButton = document.querySelector('.profile__edit-button');
