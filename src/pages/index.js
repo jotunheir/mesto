@@ -1,7 +1,6 @@
 import './index.css';
 
 import {
-  placesArray,
   configValidation,
   configAPI,
   profileEditButton,
@@ -26,6 +25,8 @@ import { PopupWithForm } from '../scripts/PopupWithForm';
 
 const api = new Api(configAPI);
 
+
+
 // Section
 
 const sectionInsatce = new Section(renderCard, '.places');
@@ -35,7 +36,7 @@ function renderCard({ data, position = 'append' }) {
   sectionInsatce.addItem(cardElement, position)
 };
 
-sectionInsatce.renderItems(placesArray);
+api.getInitialCards().then(cardsData => sectionInsatce.renderItems(cardsData));
 
 // UserInfo
 
