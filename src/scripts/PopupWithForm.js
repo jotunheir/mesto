@@ -4,7 +4,6 @@ export class PopupWithForm extends Popup {
   #submitHandler;
   #popupForm;
   #inputList;
-  #values;
 
   constructor(popupSelector, submitHandler) {
     super(popupSelector);

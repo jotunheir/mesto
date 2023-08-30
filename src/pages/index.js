@@ -21,22 +21,39 @@ import { PopupWithImage } from '../scripts/PopupWithImage';
 import { UserInfo } from '../scripts/UserInfo';
 import { PopupWithForm } from '../scripts/PopupWithForm';
 
+// Card functions
+
+function handleClickLike() {
+
+}
+
+function handleClickDelete(cardElement) {
+  api.removeCard(cardElement.getCardId())
+    .then(() => cardElement.removeCard())
+    .catch((err) => console.log(err));
+}
+
+function handleClickCard(data) {
+  popupImageInstace.open(data);
+};
+
 // API
 
 const api = new Api(configAPI);
-
-
 
 // Section
 
 const sectionInsatce = new Section(renderCard, '.places');
 
 function renderCard({ data, position = 'append' }) {
-  const cardElement = new Card({ data, handleClickCard }, '#card').createCardElement();
-  sectionInsatce.addItem(cardElement, position)
+  const cardElement = new Card({ data, handleClickLike, handleClickDelete, handleClickCard }, '#card').createCardElement();
+  sectionInsatce.addItem(cardElement, position);
+  return cardElement;
 };
 
-api.getInitialCards().then(cardsData => sectionInsatce.renderItems(cardsData));
+api.getInitialCards()
+  .then(cardsData => sectionInsatce.renderItems(cardsData))
+  .catch((err) => console.log(err));
 
 // UserInfo
 
@@ -77,7 +94,8 @@ cardAddButton.addEventListener('click', () => {
   validateCard.disableButton();
 });
 
-function handleSubmitCard() {
+function handleSubmitCard(cardData) {
+  api.addNewCard(cardData);
 
   const item = {
     name: placeInput.value,
@@ -95,7 +113,3 @@ validateCard.enableValidation();
 
 const popupImageInstace = new PopupWithImage('.popup_card');
 popupImageInstace.setEventListeners();
-
-function handleClickCard(data) {
-  popupImageInstace.open(data);
-};
