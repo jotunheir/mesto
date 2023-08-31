@@ -69,7 +69,7 @@ export class Api {
   }
 
   unlikeCard(cardId) {
-    return fetch(`${this._url}/cards/${idCard}/likes`, {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: this._headers
     })

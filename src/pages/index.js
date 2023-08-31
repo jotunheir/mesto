@@ -7,6 +7,9 @@ import {
   editFormElement,
   nameInput,
   aboutInput,
+  avatarElement,
+  avatarEditButton,
+  avatarFormElement,
   cardAddButton,
   addFormAdElement,
   placeInput,
@@ -29,7 +32,7 @@ function handleClickLike() {
 
 function handleClickDelete(cardElement) {
   api.removeCard(cardElement.getCardId())
-    .then(() => cardElement.removeCard())
+    .then(() => cardElement.deleteCard())
     .catch((err) => console.log(err));
 }
 
@@ -59,15 +62,25 @@ api.getInitialCards()
 
 const userInfo = new UserInfo({ nameProfileSelector: '.profile__name', aboutProfileSelector: '.profile__about' });
 
+api.getUserData()
+  .then(userData => userInfo.setUserInfo(userData))
+  .catch((err) => console.log(err));
+
 // Profile
 
 const popupProfileFormInstance = new PopupWithForm('.popup_edit-profile', handleSubmitProfile);
 popupProfileFormInstance.setEventListeners();
 
-function handleSubmitProfile(inputValues) {
-  userInfo.setUserInfo(inputValues);
-  popupProfileFormInstance.close();
-};
+function handleSubmitProfile(formData) {
+  const dataProfile = { name: formData.name, about: formData.about };
+
+  console.log(dataProfile);
+
+  userInfo.setUserInfo(dataProfile);
+  api.editUserProfile(dataProfile)
+    .then(() => popupProfileFormInstance.close())
+    .catch((err) => console.log(err));
+}
 
 function openProfilePopup() {
   const userData = userInfo.getUserInfo();
@@ -83,6 +96,32 @@ profileEditButton.addEventListener('click', () => {
 
 const validateProfile = new FormValidator(editFormElement, configValidation);
 validateProfile.enableValidation();
+
+// Avatar
+
+api.getUserData()
+  .then(userData => avatarElement.src = userData.avatar);
+
+const popupAvatarFormInstance = new PopupWithForm('.popup__edit-avatar', handleSubmitAvatar);
+popupAvatarFormInstance.setEventListeners();
+
+function handleSubmitAvatar(formData) {
+  const avatarData = { avatar: formData.link }
+
+  api.editProfileAvatar(avatarData)
+    .then(avatarElement.src = avatarData.avatar)
+    .then(() => popupAvatarFormInstance.close())
+    .catch((err) => console.log(err));
+};
+
+function openAvatarPopup() {
+  popupAvatarFormInstance.open();
+}
+
+avatarEditButton.addEventListener('click', openAvatarPopup);
+
+const validateAvatar = new FormValidator(avatarFormElement, configValidation);
+validateAvatar.enableValidation();
 
 // Place
 

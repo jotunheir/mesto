@@ -23,6 +23,12 @@ export const editFormElement = document.querySelector('.popup__edit-form');
 export const nameInput = document.querySelector('.popup__input_description_name');
 export const aboutInput = document.querySelector('.popup__input_description_about');
 
+// Avatar
+
+export const avatarElement = document.querySelector('.profile__avatar');
+export const avatarEditButton = document.querySelector('.profile__edit-avatar');
+export const avatarFormElement = document.querySelector('.popup__edit-avatar-form');
+
 // Place (constants)
 
 export const cardAddButton = document.querySelector('.profile__add-button');

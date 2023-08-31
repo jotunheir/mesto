@@ -30,7 +30,7 @@ export class Card {
     this.#placeImage.addEventListener('click', () => { this.#handleClickCard(this.#data) });
   }
 
-  removeCard() {
+  deleteCard() {
     this.#placeElement.remove();
     this.#placeElement = null;
   }
