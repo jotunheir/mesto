@@ -1,7 +1,10 @@
 export class Api {
+  #url
+  #headers
+  
   constructor(config) {
-    this._url = config.url;
-    this._headers = config.headers;
+    this.#url = config.url;
+    this.#headers = config.headers;
   }
 
   #onResponce(res) {
@@ -11,67 +14,67 @@ export class Api {
   }
 
   getUserData(userData) {
-    return fetch(`${this._url}/users/me`, {
-      headers: this._headers,
+    return fetch(`${this.#url}/users/me`, {
+      headers: this.#headers,
       body: JSON.stringify(userData)
     })
       .then(this.#onResponce)
   }
 
   editUserProfile(profileData) {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${this.#url}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: this.#headers,
       body: JSON.stringify(profileData)
     })
       .then(this.#onResponce)
   }
 
   editProfileAvatar(avatarData) {
-    return fetch(`${this._url}/users/me/avatar`, {
+    return fetch(`${this.#url}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: this.#headers,
       body: JSON.stringify(avatarData)
     })
       .then(this.#onResponce)
   }
 
   getInitialCards() {
-    return fetch(`${this._url}/cards`, {
-      headers: this._headers
+    return fetch(`${this.#url}/cards`, {
+      headers: this.#headers,
     })
       .then(this.#onResponce)
   }
 
   addNewCard(cardData) {
-    return fetch(`${this._url}/cards`, {
+    return fetch(`${this.#url}/cards`, {
       method: 'POST',
-      headers: this._headers,
+      headers: this.#headers,
       body: JSON.stringify(cardData)
     })
       .then(this.#onResponce)
   }
 
   removeCard(cardId) {
-    return fetch(`${this._url}/cards/${cardId}`, {
+    return fetch(`${this.#url}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: this.#headers
     })
       .then(this.#onResponce)
   }
 
   likeCard(cardId) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
+    return fetch(`${this.#url}/cards/${cardId}/likes`, {
       method: 'PUT',
-      headers: this._headers
+      headers: this.#headers
     })
       .then(this.#onResponce)
   }
 
   unlikeCard(cardId) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
+    return fetch(`${this.#url}/cards/${cardId}/likes`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: this.#headers
     })
       .then(this.#onResponce)
   }

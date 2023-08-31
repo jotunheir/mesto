@@ -23,22 +23,7 @@ import { Card } from "../scripts/Card.js";
 import { PopupWithImage } from '../scripts/PopupWithImage';
 import { UserInfo } from '../scripts/UserInfo';
 import { PopupWithForm } from '../scripts/PopupWithForm';
-
-// Card functions
-
-function handleClickLike() {
-
-}
-
-function handleClickDelete(cardElement) {
-  api.removeCard(cardElement.getCardId())
-    .then(() => cardElement.deleteCard())
-    .catch((err) => console.log(err));
-}
-
-function handleClickCard(data) {
-  popupImageInstace.open(data);
-};
+import { PopupWithConfirmation } from '../scripts/PopupWithConfirmation';
 
 // API
 
@@ -60,10 +45,17 @@ api.getInitialCards()
 
 // UserInfo
 
-const userInfo = new UserInfo({ nameProfileSelector: '.profile__name', aboutProfileSelector: '.profile__about' });
+const userInfo = new UserInfo({
+  nameProfileSelector: '.profile__name',
+  aboutProfileSelector: '.profile__about',
+  avatarProfileSelector: '.profile__avatar'
+});
 
 api.getUserData()
-  .then(userData => userInfo.setUserInfo(userData))
+  .then(userData => {
+    userInfo.setUserInfo(userData);
+    userInfo.setUserAvatar(userData);
+  })
   .catch((err) => console.log(err));
 
 // Profile
@@ -73,8 +65,6 @@ popupProfileFormInstance.setEventListeners();
 
 function handleSubmitProfile(formData) {
   const dataProfile = { name: formData.name, about: formData.about };
-
-  console.log(dataProfile);
 
   userInfo.setUserInfo(dataProfile);
   api.editUserProfile(dataProfile)
@@ -98,9 +88,6 @@ const validateProfile = new FormValidator(editFormElement, configValidation);
 validateProfile.enableValidation();
 
 // Avatar
-
-api.getUserData()
-  .then(userData => avatarElement.src = userData.avatar);
 
 const popupAvatarFormInstance = new PopupWithForm('.popup__edit-avatar', handleSubmitAvatar);
 popupAvatarFormInstance.setEventListeners();
@@ -147,6 +134,32 @@ function handleSubmitCard(cardData) {
 
 const validateCard = new FormValidator(addFormAdElement, configValidation);
 validateCard.enableValidation();
+
+// Place: functions
+
+//like
+function handleClickLike() {
+
+}
+
+//delete
+const PopupWithConfirmationInstance = new PopupWithConfirmation('.popup_delete', handleClickDelete);
+PopupWithConfirmationInstance.setEventListeners();
+
+function handleClickDelete(cardElement) {
+  PopupWithConfirmationInstance.open();
+  PopupWithConfirmationInstance.setSubmitAction(() => {
+    api.removeCard(cardElement.getCardId())
+      .then(() => cardElement.deleteCard())
+      .then(() => PopupWithConfirmationInstance.close())
+      .catch((err) => console.log(err));
+  })
+}
+
+//open
+function handleClickCard(data) {
+  popupImageInstace.open(data);
+};
 
 // Image
 
