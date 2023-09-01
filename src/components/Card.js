@@ -81,14 +81,14 @@ export class Card {
     this.#placeTitle = this.#placeElement.querySelector('.place__title');
     this.#placeImage = this.#placeElement.querySelector('.place__image');
     this.#placeLike = this.#placeElement.querySelector('.place__like');
-    this.#placeLikeCounter = this.#placeElement.querySelector('.place__like-count')
+    this.#placeLikeCounter = this.#placeElement.querySelector('.place__like-count');
     this.#placeTrash = this.#placeElement.querySelector('.place__trash');
 
     this.#placeTitle.textContent = this.#data.name;
     this.#placeImage.src = this.#data.link;
     this.#placeImage.alt = this.#data.name;
-    this.#placeLikeCounter.textContent = this.#likes.length
-    this.showActiveLikes()
+    this.#placeLikeCounter.textContent = this.#likes.length;
+    this.showActiveLikes();
     this.showTrash();
     this.#setEventListeners();
 

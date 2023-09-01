@@ -27,6 +27,18 @@ import { PopupWithConfirmation } from '../components/PopupWithConfirmation';
 
 const api = new Api(configAPI);
 
+let userId;
+
+Promise.all([api.getUserData(), api.getInitialCards()])
+  .then(([userData, cardItems]) => {
+    userInfo.setUserInfo(userData);
+    userInfo.setUserAvatar(userData);
+    userId = userData._id;
+
+    sectionInsatce.renderItems(cardItems)
+  })
+  .catch((err) => console.log(err));
+
 // Section
 
 const sectionInsatce = new Section(renderCard, '.places');
@@ -37,10 +49,6 @@ function renderCard({ data, position = 'append' }) {
   return cardElement;
 };
 
-api.getInitialCards()
-  .then((cardsData) => sectionInsatce.renderItems(cardsData))
-  .catch((err) => console.log(err));
-
 // UserInfo
 
 const userInfo = new UserInfo({
@@ -48,16 +56,6 @@ const userInfo = new UserInfo({
   aboutProfileSelector: '.profile__about',
   avatarProfileSelector: '.profile__avatar'
 });
-
-let userId;
-
-api.getUserData()
-  .then((userData) => {
-    userInfo.setUserInfo(userData);
-    userInfo.setUserAvatar(userData);
-    userId = userData._id;
-  })
-  .catch((err) => console.log(err));
 
 // Profile
 
@@ -67,10 +65,12 @@ popupProfileFormInstance.setEventListeners();
 function handleSubmitProfile(formData) {
   const dataProfile = { name: formData.name, about: formData.about };
 
-  userInfo.setUserInfo(dataProfile);
   popupProfileFormInstance.loading(true);
   api.editUserProfile(dataProfile)
-    .then(() => popupProfileFormInstance.close())
+    .then((dataProfile) => {
+      userInfo.setUserInfo(dataProfile);
+      popupProfileFormInstance.close()
+    })
     .catch((err) => console.log(err))
     .finally(() => popupProfileFormInstance.loading(false));
 }
@@ -157,20 +157,20 @@ function handleClickLike(cardElement) {
 }
 
 //delete
-const PopupWithConfirmationInstance = new PopupWithConfirmation('.popup_delete', handleClickDelete);
-PopupWithConfirmationInstance.setEventListeners();
+const popupWithConfirmationInstance = new PopupWithConfirmation('.popup_delete', handleClickDelete);
+popupWithConfirmationInstance.setEventListeners();
 
 function handleClickDelete(cardElement) {
-  PopupWithConfirmationInstance.open();
-  PopupWithConfirmationInstance.setSubmitAction(() => {
-    PopupWithConfirmationInstance.loading(true)
+  popupWithConfirmationInstance.open();
+  popupWithConfirmationInstance.setSubmitAction(() => {
+    popupWithConfirmationInstance.loading(true)
     api.removeCard(cardElement.getCardId())
       .then(() => {
         cardElement.deleteCard();
-        PopupWithConfirmationInstance.close()
+        popupWithConfirmationInstance.close()
       })
       .catch((err) => console.log(err))
-      .finally(() => PopupWithConfirmationInstance.loading(false))
+      .finally(() => popupWithConfirmationInstance.loading(false))
   })
 }
 
