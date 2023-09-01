@@ -3,7 +3,6 @@ export class Card {
   #ownerId;
   #userId;
   #likes;
-
   #placeElement;
   #templateSelector;
   #handleClickLike
@@ -17,11 +16,9 @@ export class Card {
 
   constructor({ data, userId, handleClickLike, handleClickDelete, handleClickCard }, templateSelector) {
     this.#data = data;
-    this.#ownerId = this.#data.owner._id;
+    this.#ownerId = data.owner._id;
     this.#userId = userId;
     this.#likes = data.likes;
-
-
     this.#templateSelector = templateSelector;
     this.#handleClickLike = handleClickLike;
     this.#handleClickDelete = handleClickDelete;
@@ -40,19 +37,19 @@ export class Card {
     this.#placeImage.addEventListener('click', () => { this.#handleClickCard(this.#data) });
   }
 
-  isCardLiked() {
+  isLiked() {
     return this.#placeLike.classList.contains('place__like_active');
   }
 
-  likeCard(likesCount) {
+  likeCard(counter) {
     this.#likes = this.#data.likes;
     this.#placeLike.classList.toggle('place__like_active');
-    this.#placeLikeCounter.textContent = likesCount;
+    this.#placeLikeCounter.textContent = counter;
   }
 
-  showLike() {
-    this.#likes.forEach((card) => {
-      if (card._id === this.#userId) {
+  showActiveLikes() {
+    this.#likes.forEach((like) => {
+      if (like._id === this.#userId) {
         this.#placeLike.classList.add('place__like_active');
       }
     });
@@ -69,6 +66,15 @@ export class Card {
     this.#placeElement = null;
   }
 
+  getCardId() {
+    return this.#data._id;
+  }
+
+  getCardsData() {
+    const { name, _id, link } = this.#data;
+    return { name, _id, link };
+  }
+
   createCardElement() {
     this.#placeElement = this.#getTemplate();
 
@@ -82,20 +88,10 @@ export class Card {
     this.#placeImage.src = this.#data.link;
     this.#placeImage.alt = this.#data.name;
     this.#placeLikeCounter.textContent = this.#likes.length
-
-    this.showLike();
+    this.showActiveLikes()
     this.showTrash();
     this.#setEventListeners();
 
     return this.#placeElement;
   };
-
-  getCardId() {
-    return this.#data._id;
-  }
-
-  getCardsData() {
-    const { name, _id, link } = this.#data;
-    return { name, _id, link };
-  }
 }

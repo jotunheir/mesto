@@ -12,8 +12,6 @@ import {
   avatarFormElement,
   cardAddButton,
   addFormAdElement,
-  placeInput,
-  linkInput,
 } from "../utils/constants";
 
 import { Api } from '../components/Api'
@@ -40,7 +38,7 @@ function renderCard({ data, position = 'append' }) {
 };
 
 api.getInitialCards()
-  .then(cardsData => sectionInsatce.renderItems(cardsData))
+  .then((cardsData) => sectionInsatce.renderItems(cardsData))
   .catch((err) => console.log(err));
 
 // UserInfo
@@ -54,7 +52,7 @@ const userInfo = new UserInfo({
 let userId;
 
 api.getUserData()
-  .then(userData => {
+  .then((userData) => {
     userInfo.setUserInfo(userData);
     userInfo.setUserAvatar(userData);
     userId = userData._id;
@@ -99,11 +97,12 @@ popupAvatarFormInstance.setEventListeners();
 
 function handleSubmitAvatar(formData) {
   const avatarData = { avatar: formData.link }
-
   popupAvatarFormInstance.loading(true)
   api.editProfileAvatar(avatarData)
-    .then(avatarElement.src = avatarData.avatar)
-    .then(() => popupAvatarFormInstance.close())
+    .then(() => {
+      avatarElement.src = avatarData.avatar;
+      popupAvatarFormInstance.close()
+    })
     .catch((err) => console.log(err))
     .finally(() => popupAvatarFormInstance.loading(false));
 };
@@ -130,7 +129,7 @@ cardAddButton.addEventListener('click', () => {
 function handleSubmitCard(cardData) {
   popupAddFormInstance.loading(true);
   api.addNewCard(cardData)
-    .then(res => {
+    .then((res) => {
       renderCard({ data: res, position: 'prepend' });
       popupAddFormInstance.close();
     })
@@ -146,35 +145,15 @@ validateCard.enableValidation();
 
 //like
 function handleClickLike(cardElement) {
-  if (cardElement.isCardLiked()) {
+  if (cardElement.isLiked()) {
     api.unlikeCard(cardElement.getCardId())
-      .then(res => cardElement.likeCard(res.likes.length))
-      .catch(err => console.log(err));
+      .then((res) => cardElement.likeCard(res.likes.length))
+      .catch((err) => console.log(err));
   } else {
-    api.likeCard(cardElement.isCardLiked())
-      .then(res => cardElement.likeCard(res.likes.length))
-      .catch(err => console.log(err));
-  }
-
-  // if (newCard.isLike()) {
-  //   api
-  //     .deleteLike(newCard.getCardId())
-  //     .then((res) => {
-  //       newCard.likeCard(res.likes.length);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // } else {
-  //   api
-  //     .setLike(newCard.getCardId())
-  //     .then((res) => {
-  //       newCard.likeCard(res.likes.length);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
+    api.likeCard(cardElement.getCardId())
+      .then((res) => cardElement.likeCard(res.likes.length))
+      .catch((err) => console.log(err));
+  };
 }
 
 //delete
