@@ -3,13 +3,16 @@ import { Popup } from "./Popup";
 export class PopupWithForm extends Popup {
   #submitHandler;
   #popupForm;
+  #popupFormButton;
+  #buttonText;
   #inputList;
-  #values;
 
-  constructor(popupSelector, submitHandler) {
+  constructor(popupSelector, submitHandler, buttonText) {
     super(popupSelector);
     this.#submitHandler = submitHandler;
     this.#popupForm = this._popupElement.querySelector('.popup__form');
+    this.#popupFormButton = this.#popupForm.querySelector('.popup__save-button');
+    this.#buttonText = buttonText;
     this.#inputList = Array.from(this.#popupForm.querySelectorAll('.popup__input'));
   }
 
@@ -19,6 +22,12 @@ export class PopupWithForm extends Popup {
       values[input.name] = input.value
     })
     return values;
+  }
+
+  loading(isLoading) {
+    (isLoading)
+    ? this.#popupFormButton.textContent = 'Загрузка...'
+    : this.#popupFormButton.textContent = `${this.#buttonText}`
   }
 
   close() {

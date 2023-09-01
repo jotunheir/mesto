@@ -18,7 +18,7 @@ export class FormValidator {
 
   #hideInputError(inputElement, errorElement) {
     inputElement.classList.remove(this.#configValidation.inputErrorClass);
-    errorElement.textContent = inputElement.validationMessage;
+    errorElement.textContent = '';
   };
 
   #checkInputValidity(inputElement, formElement) {

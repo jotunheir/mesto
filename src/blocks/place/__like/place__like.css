@@ -7,6 +7,8 @@
   border: none;
   align-self: center;
   transition: opacity 0.2s;
+
+  padding: 0;
 }
 
 .place__like:hover {
