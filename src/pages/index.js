@@ -96,7 +96,7 @@ const popupAvatarFormInstance = new PopupWithForm('.popup__edit-avatar', handleS
 popupAvatarFormInstance.setEventListeners();
 
 function handleSubmitAvatar(formData) {
-  const avatarData = { avatar: formData.link }
+  const avatarData = { avatar: formData.avatar }
   popupAvatarFormInstance.loading(true)
   api.editProfileAvatar(avatarData)
     .then(() => {
