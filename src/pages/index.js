@@ -67,7 +67,7 @@ function handleSubmitProfile(formData) {
 
   popupProfileFormInstance.loading(true);
   api.editUserProfile(dataProfile)
-    .then((dataProfile) => {
+    .then(() => {
       userInfo.setUserInfo(dataProfile);
       popupProfileFormInstance.close()
     })
