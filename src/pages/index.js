@@ -92,7 +92,7 @@ validateProfile.enableValidation();
 
 // Avatar
 
-const popupAvatarFormInstance = new PopupWithForm('.popup__edit-avatar', handleSubmitAvatar, 'Сохранить');
+const popupAvatarFormInstance = new PopupWithForm('.popup_edit-avatar', handleSubmitAvatar, 'Сохранить');
 popupAvatarFormInstance.setEventListeners();
 
 function handleSubmitAvatar(formData) {
