@@ -22,7 +22,7 @@ export class FormValidator {
   };
 
   #checkInputValidity(inputElement, formElement) {
-    const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
+    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
     (!inputElement.validity.valid) ?
       this.#showInputError(inputElement, errorElement) :
       this.#hideInputError(inputElement, errorElement);
