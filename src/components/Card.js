@@ -57,7 +57,7 @@ export class Card {
 
   showTrash() {
     if (!(this.#ownerId === this.#userId)) {
-      this.#placeTrash.classList.toggle('place__trash_hidden');
+      this.#placeTrash.remove();
     }
   }
 

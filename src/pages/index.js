@@ -7,7 +7,6 @@ import {
   editFormElement,
   nameInput,
   aboutInput,
-  avatarElement,
   avatarEditButton,
   avatarFormElement,
   cardAddButton,
@@ -62,9 +61,7 @@ const userInfo = new UserInfo({
 const popupProfileFormInstance = new PopupWithForm('.popup_edit-profile', handleSubmitProfile, 'Сохранить');
 popupProfileFormInstance.setEventListeners();
 
-function handleSubmitProfile(formData) {
-  const dataProfile = { name: formData.name, about: formData.about };
-
+function handleSubmitProfile(dataProfile) {
   popupProfileFormInstance.loading(true);
   api.editUserProfile(dataProfile)
     .then(() => {
@@ -95,12 +92,11 @@ validateProfile.enableValidation();
 const popupAvatarFormInstance = new PopupWithForm('.popup_edit-avatar', handleSubmitAvatar, 'Сохранить');
 popupAvatarFormInstance.setEventListeners();
 
-function handleSubmitAvatar(formData) {
-  const avatarData = { avatar: formData.avatar }
+function handleSubmitAvatar(avatarData) {
   popupAvatarFormInstance.loading(true)
   api.editProfileAvatar(avatarData)
     .then(() => {
-      avatarElement.src = avatarData.avatar;
+      userInfo.setUserAvatar(avatarData)
       popupAvatarFormInstance.close()
     })
     .catch((err) => console.log(err))

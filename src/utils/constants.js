@@ -24,7 +24,6 @@ export const aboutInput = document.querySelector('.popup__input_description_abou
 
 // Avatar
 
-export const avatarElement = document.querySelector('.profile__avatar');
 export const avatarEditButton = document.querySelector('.profile__edit-avatar');
 export const avatarFormElement = document.querySelector('.popup__edit-avatar-form');
 
